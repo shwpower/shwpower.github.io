@@ -1,15 +1,19 @@
 <!DOCTYPE html>
-<html lang="zh_cn">
+<html>
+
   {% include head.html %}
-<body>
-  {% include navbar.html%}
 
-  <div class="container page-content">
+  <body class="index">
+
+    {% include header.html %}
+    {% include docs_header.html %}
+    {% if page.title %}
+      {% include banner.html %}
+    {% endif %}
+
     {{ content }}
-  </div>
+    
+    {% include footer.html %}
 
-  {% include footer.html%}
-
-  {% include script.html %}
-</body>
+  </body>
 </html>
