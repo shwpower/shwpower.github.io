@@ -22,11 +22,11 @@ github_username: shwpower
 highlighter: rouge
 
 # Build settings
-#markdown: kramdown
+markdown: kramdown
 # markdown: rdiscount
-markdown:redcarpet
-redcarpet:
-    extensions: [ "hard_wrap","autolink", "tables", "strikethrough", "superscript", "with_toc_data", "highlight", "prettify","no_intra_emphasis"]
+# markdown:redcarpet
+#redcarpet:
+#    extensions: [ "hard_wrap","autolink", "tables", "strikethrough", "superscript", "with_toc_data", "highlight", "prettify","no_intra_emphasis"]
     
 FB:
   comments :
