@@ -85,11 +85,11 @@ tag: 基本概念
 * 抽象数据类型（Abstract Data Type，ADT）是指一个数学模型及定义在该模型上的一组操作
 	- 定义仅取决于它的一组逻辑特性，而与其在计算机内部如何表示和实现无关
 	- 标准格式：
-	{% highlight bash %}
-	ADT 抽象数据类型名
-	Data
-		数据元素之间逻辑关系的定义
-	Operation
-		操作
-	endADT
-	{% endhighlight %}
+{% highlight bash %}
+ADT 抽象数据类型名
+Data
+	数据元素之间逻辑关系的定义
+Operation
+	操作
+endADT
+{% endhighlight %}
