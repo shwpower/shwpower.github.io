@@ -22,7 +22,8 @@ github_username: shwpower
 highlighter: rouge
 
 # Build settings
-markdown: kramdown
+#markdown: kramdown
+markdown: rdiscount
 
 FB:
   comments :
