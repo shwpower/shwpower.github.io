@@ -12,7 +12,7 @@ tag: 数据库管理
 
 # 1 创建和配置数据库
 
-## 建库前考虑
+## 1.1 建库前考虑
 
 * 空间需求
 * 文件布局
@@ -26,7 +26,7 @@ tag: 数据库管理
 * 备份恢复策略
 * 启动和关闭选项
 
-## 创建数据库
+## 1.2 创建数据库
 
 ### DBCA
 
@@ -58,7 +58,7 @@ dbca -help
 > 可选项： 安装额外组件，备份数据库，启用自动实例启动
 
 
-## 指定初始化参数
+## 1.3 指定初始化参数
 
 * 初始化参数文件
     - Linux/Unix: `$ORACLE_HOME/dbs/init${ORACLE_SID}.ora`
@@ -74,7 +74,7 @@ dbca -help
     - `compatible`
     - `license_max_users`
 
-## 管理初始化参数(spfile)
+## 1.4 管理初始化参数(spfile)
 
 * server parameter文件：服务器参数文件是运行Oracle数据库服务器的系统上维护的初始化参数的存储库
 * spfile文件操作
@@ -110,22 +110,22 @@ dbca -help
     - `v$service_metrics` `v$service_metrics_history`
 
 
-## 建库后操作 
+## 1.5 建库后操作 
 
 * 安全考虑：修改管理员用户密码
 * 启用Transparent Data Encryption
 * 创建Secure External Password Store
 * 安装Database Sample Schemas
 
-## 克隆数据库
+## 1.6 克隆数据库
 
 
-## 删除数据库
+## 1.7 删除数据库
 
  
 # 2 启动和关闭数据库
 
-## 启动数据库
+## 2.1 启动数据库
 
 * 启动方式
     - sqlplus
@@ -145,7 +145,7 @@ dbca -help
     - force: 在启动或关闭问题后强制启动实例
     - open recovery: 启动实例并立即完成介质恢复
 
-## 修改数据库状态
+## 2.2 修改数据库状态
 
 * mount数据库到实例 `alter database mount;`
 * open数据库 `alter database open [read write];`
@@ -153,7 +153,7 @@ dbca -help
 * open数据库restricting访问 `alter database enable/disable restricted session`
 
 
-## 关闭数据库
+## 2.3 关闭数据库
 
 * shutdown模式
     - Normal
@@ -162,51 +162,51 @@ dbca -help
     - Abort
 * shutdown timeout: 等待用户断开连接或事务完成的关闭模式对等待的时间限制
 
-## Quiesing数据库
+## 2.4 Quiesing数据库
 
 * 静止状态：将数据库置于只允许DBA事务，查询，提取或PL/SQL语句的状态
 
-## Supsending和Resuming数据库
+## 2.5 Supsending和Resuming数据库
 
 # 3 配置数据库自动重启
 
 
 # 4 管理进程
 
-## 服务器进程概念
+## 4.1 服务器进程概念
 
 * Dedicated服务器进程
 * Shared服务器进程
 * DRCP
 
-## 配置Shared Server
+## 4.2 配置Shared Server
 
-## 配置Resident Connection Pooling
+## 4.3 配置Resident Connection Pooling
 
-## 进程操作
+## 4.4 进程操作
 
 * 并发执行
 * 终止会话
 * 会话/进程查询
 
-## 后台进程
+## 4.5 后台进程
 
 # 5 管理内存
 
-## 内存架构
+## 5.1 内存架构
 
-## 自动内存管理
+## 5.2 自动内存管理
 
-## 手动内存管理
+## 5.3 手动内存管理
 
-## 配置Smart Flash Cache
+## 5.4 配置Smart Flash Cache
 
 
 # 6 数据库监控
 
-## 监控错误和报警
+## 6.1 监控错误和报警
 
-## 监控性能
+## 6.2 监控性能
 
 * 锁
 * 等待事件
