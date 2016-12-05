@@ -94,7 +94,7 @@ dbca -help
     - `v_system_parameter` 同上，但每个列表参数值都显示在单独的行中
     - `v$spparameter` 显示SPFILE的当前内容
     
-## 管理应用负载(service)
+## 1.5 管理应用负载(service)
 
 * 数据库服务：用于在Oracle数据库中管理工作负载的逻辑抽象
     - 服务将工作负载分为相互分离的组
@@ -110,17 +110,17 @@ dbca -help
     - `v$service_metrics` `v$service_metrics_history`
 
 
-## 1.5 建库后操作 
+## 1.6 建库后操作 
 
 * 安全考虑：修改管理员用户密码
 * 启用Transparent Data Encryption
 * 创建Secure External Password Store
 * 安装Database Sample Schemas
 
-## 1.6 克隆数据库
+## 1.7 克隆数据库
 
 
-## 1.7 删除数据库
+## 1.8 删除数据库
 
  
 # 2 启动和关闭数据库
