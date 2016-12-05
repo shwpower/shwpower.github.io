@@ -33,7 +33,7 @@ tag: 数据库管理
 * Interactive模式
 
 * Noninteractive/Silent模式
-{% highlight %}
+{% highlight command %}
 dbca -silent -createDatabase -templateName General_Purpose.dbc
   -gdbname ora11g -sid ora11g -responseFile NO_VALUE -characterSet AL32UTF8
   -memoryPercentage 30 -emConfiguration LOCAL
