@@ -3,7 +3,7 @@ layout: post
 title:  Oracle数据库 - 基本管理
 date:   2016-09-13 11:15:00 +0800
 categories: Oracle数据库
-tag: 数据库管理
+tag: [数据库管理,Oracle,Database,数据库]
 ---
 
 * content
@@ -64,8 +64,9 @@ dbca -help
 * 参考脚本(Oracle版本为11.2.0.4)
 {% highlight bash %}
 $ export ORACLE_SID=orcl
+
 $ vi init${ORACLE_SID}.ora
-db_name='css'
+db_name='orcl'
 db_block_size=8192
 sga_target=300M
 pga_aggregate_target=100m
@@ -73,6 +74,7 @@ processes=150
 db_create_file_dest="/oradata"
 db_create_online_log_dest_1="/oradata"
 diagnostic_dest=/u01/app/oracle
+
 $ vi create_$ORACLE_SID.sql
 create database orcl
  maxlogfiles 5 maxlogmembers 5 maxdatafiles 100 maxinstances 1
@@ -82,11 +84,13 @@ create database orcl
  undo tablespace undotbs1 datafile size 100m
  default temporary tablespace "TEMP" tempfile size 100m 
  character set al32utf8 national character set al16utf16;
+ 
 $ vi post_createdb.sql
 @$ORACLE_HOME/rdbms/admin/catalog.sql
 @$ORACLE_HOME/rdbms/admin/catproc.sql
 conn system/manager
 @$ORACLE_HOME/sqlplus/admin/pupbld.sql
+
 $ mkdir -p ${ORACLE_BASE}/admin/$ORACLE_SID/adump
 $ ${ORACLE_HOME}/bin/sqlplus / as  sysdba
 
