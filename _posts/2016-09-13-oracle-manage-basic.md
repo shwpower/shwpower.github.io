@@ -31,6 +31,10 @@ tag: 数据库管理
 ### DBCA
 
 * Interactive模式
+{% highlight command %}
+export DISPLAY=<You IP>:0.0
+$ORACLE_HOME/bin/dbca
+{% endhighlight %}
 
 * Noninteractive/Silent模式
 {% highlight command %}
@@ -41,7 +45,7 @@ dbca -silent -createDatabase -templateName General_Purpose.dbc
 dbca -help
 {% endhighlight %}
 
-### create database语句
+### create database
 
 * 1 指定SID `ORACLE_SID`
 * 2 确保环境变量 `ORACLE_HOME`
@@ -56,7 +60,42 @@ dbca -help
 * 11 执行脚本build系统视图
 
 > 可选项： 安装额外组件，备份数据库，启用自动实例启动
+    
+* 参考脚本(Oracle版本为11.2.0.4)
+{% highlight bash %}
+$ export ORACLE_SID=orcl
+$ vi init${ORACLE_SID}.ora
+db_name='css'
+db_block_size=8192
+sga_target=300M
+pga_aggregate_target=100m
+processes=150
+db_create_file_dest="/oradata"
+db_create_online_log_dest_1="/oradata"
+diagnostic_dest=/u01/app/oracle
+$ vi create_$ORACLE_SID.sql
+create database orcl
+ maxlogfiles 5 maxlogmembers 5 maxdatafiles 100 maxinstances 1
+ logfile group 1 size 20m, group 2 size 20m, group 3 size 20m
+ datafile size 200m sysaux datafile size 100m
+ default tablespace "USERS" datafile size 100m
+ undo tablespace undotbs1 datafile size 100m
+ default temporary tablespace "TEMP" tempfile size 100m 
+ character set al32utf8 national character set al16utf16;
+$ vi post_createdb.sql
+@$ORACLE_HOME/rdbms/admin/catalog.sql
+@$ORACLE_HOME/rdbms/admin/catproc.sql
+conn system/manager
+@$ORACLE_HOME/sqlplus/admin/pupbld.sql
+$ mkdir -p ${ORACLE_BASE}/admin/$ORACLE_SID/adump
+$ ${ORACLE_HOME}/bin/sqlplus / as  sysdba
 
+SQL> startup nomount;
+SQL> create spfile from pfile;
+SQL> @create_${ORACLE_SID}.sql
+SQL> @post_createdb.sql
+
+{% endhighlight %}
 
 ## 1.3 指定初始化参数
 
@@ -78,14 +117,17 @@ dbca -help
 
 * server parameter文件：服务器参数文件是运行Oracle数据库服务器的系统上维护的初始化参数的存储库
 * spfile文件操作
-    - 创建
-    - 迁移
-    - 备份
-    - 导出
-    - 恢复
-* spfile中参数操作 `alter system`
-    - 更改
-    - 清除
+    - 创建 
+        - `create spfile from pfile='../dbs/init.ora';`
+        - `create spfile='../dbs/t_spfile.ora' from pfile='../dbs/t_init.ora';`
+        - `create spfile from memory;`
+    - 迁移/备份/导出 
+        - `create pfile from spfile;`
+        - `create pfile='/tmp/t_init.ora' from spfile='/tmp/t_spfile.ora';`
+    - 恢复 `create spfile from pfile;`
+* spfile中参数操作 `alter system <name>=<value> scope=[spfile|memory|both];`
+    - 更改 `alter system set <name>=<value> comment='for Name' scope=spfile;`
+    - 清除 `alter system reset;`
 * 参数文件设置查看
     - `show parameters` `show spparameter`
     - `v$parameter` 当前会话有效的初始化参数的值
