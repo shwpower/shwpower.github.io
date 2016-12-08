@@ -15,18 +15,8 @@ tag: 不可用问题
 
 * BDC中的SCN以惊人的速率增加，并接近可能导致在极端情况下数据库关闭的上限
 * 知识点
-	- Oracle数据库在安装了2012年1月发布的CPU或PSU补丁之后，经常出现下面一些现象
-{% highlight sql %}
-
-ORA-19706: invalid SCN
-Advanced SCN by 68093 minutes worth to 0x0ba9.4111a520, by distributed transaction remote logon, remote DB:xxxx.
-
-Rejected the attempt to advance SCN over limit by 166 hours worth to 0x0ba9.3caec689, by distributed transaction remote logon, remote DB: xxxx
-
-Warning: The SCN headroom for this database is only 38 days!
-
-{% endhighlight %}
-    - 如果说以上的现象只是警告或应用级报错，影响范围有限，那么不幸的是如果遇到RECO进程在恢复分布式事务时遇到SCN问题，则可能使数据库宕掉
+	- Oracle数据库在安装了2012年1月发布的CPU或PSU补丁之后，经常出现下面一些关于SCN的报错
+    - 如果只是警告或应用级报错，影响范围有限，那么不幸的是如果遇到RECO进程在恢复分布式事务时遇到SCN问题，则可能使数据库宕掉
 	- SCN可以说是Oracle中的很基础，它是一个单向增长的“时钟”，广泛应用于数据库的恢复、事务ACID、一致性读还有分布式事务中
 		- Oracle内部，SCN分为两部分存储(低32位-scn base和高16位-scn wrap),是一个48位的整数,最大就是2^48（2的48次方, 281万亿，281474976710656）
 		- Maximum Reasonable SCN：在当前时间点，SCN最大允许达到（或者说最大可能）的SCN值。也称为Reasonable SCN Limit，简称RSL,计算(当前时间-1988年1月1日）*24*3600*SCN每秒最大可能增长速率
@@ -36,7 +26,17 @@ Warning: The SCN headroom for this database is only 38 days!
 	- `_external_scn_rejection_threshold_hours`参数
 		- 11.2.0.2及以上版本的这个参数默认值是24，其他版本默认值是744
 		- db link依赖很严重的系统可能会导致ORA-19706错误，从而影响业务，严重时还会宕机
-		
+
+{% highlight sql %}
+
+ORA-19706: invalid SCN
+Advanced SCN by 68093 minutes worth to 0x0ba9.4111a520, by distributed transaction remote logon, remote DB:xxxx.
+
+Rejected the attempt to advance SCN over limit by 166 hours worth to 0x0ba9.3caec689, by distributed transaction remote logon, remote DB: xxxx
+
+Warning: The SCN headroom for this database is only 38 days!
+
+{% endhighlight %}	
 ### 原因
 
 * 分布式数据库中，很多数据库之间通过dblink进行操作数据，过高的SCN进行无限扩散
