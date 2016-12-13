@@ -33,7 +33,7 @@ tag: [Oracle,数据库开发,PL/SQL]
 
 # 3 数据类型
 
-* SQL数据类型：最大大小、额外的BINARAY_FLOAT|DOUBLE常量  
+* SQL数据类型：最大大小、额外的BINARAY_FLOAT或DOUBLE常量  
     - `--ORA-06502: PL/SQL: numeric or value error: character string buffer too small`
 * BOOLEAN
 * PLS_INTEGER（可转换为char/varchar2/number/long）和BINARAY_INTEGER
@@ -50,7 +50,7 @@ tag: [Oracle,数据库开发,PL/SQL]
     - 简单CASE
     - 查询的CASE
 * LOOP循环：
-	- 基本LOOP,FOR LOOP,Cursor FOR LOOP(索引|上下界),WHILE LOOP 
+	- 基本LOOP,FOR LOOP,Cursor FOR LOOP(索引、上下界),WHILE LOOP 
 	- EXIT, EXIT WHEN
 	- CONTINUE, CONTINUE WHEN
 * 顺序控制：GOTO, NULL 
@@ -128,7 +128,7 @@ tag: [Oracle,数据库开发,PL/SQL]
 
 ## 事务处理和控制
 
-*（并发问题，锁机制）
+* 并发问题，锁机制
 * commit
 * rollback [to];
 * savepoint;
@@ -153,22 +153,25 @@ tag: [Oracle,数据库开发,PL/SQL]
 - OPEN FOR,FETCH和CLOSE语句
 	
 {% highlight sql %}
-		v_stmt_str := 'SELECT * FROM employees WHERE job_id = :j';
-		OPEN v_emp_cursor FOR v_stmt_str USING 'MANAGER';
-		LOOP
-		FETCH v_emp_cursor INTO emp_record;
-		EXIT WHEN v_emp_cursor%NOTFOUND;
-		END LOOP;
-		CLOSE v_emp_cursor;
+
+v_stmt_str := 'SELECT * FROM employees WHERE job_id = :j';
+OPEN v_emp_cursor FOR v_stmt_str USING 'MANAGER';
+LOOP
+FETCH v_emp_cursor INTO emp_record;
+EXIT WHEN v_emp_cursor%NOTFOUND;
+END LOOP;
+CLOSE v_emp_cursor;
 	
 {% endhighlight %}
 	
 - 重复占位符
+
 {% highlight sql %}
-	sql_stmt := 'INSERT INTO payroll VALUES (:x, :x, :y, :x)';
-	EXECUTE IMMEDIATE sql_stmt USING a, a, b, a;
-	EXECUTE IMMEDIATE sql_stmt USING a, a, b, a;
-	......
+
+sql_stmt := 'INSERT INTO payroll VALUES (:x, :x, :y, :x)';
+EXECUTE IMMEDIATE sql_stmt USING a, a, b, a;
+EXECUTE IMMEDIATE sql_stmt USING a, a, b, a;
+......
 	
 {% endhighlight %}
 
@@ -195,11 +198,13 @@ tag: [Oracle,数据库开发,PL/SQL]
 ## 异常处理
 
 {% highlight sql %}
-	EXCEPTION
-	  WHEN ex_name_1 THEN statements_1                 -- Exception handler
-	  WHEN ex_name_2 OR ex_name_3 THEN statements_2  -- Exception handler
-	  WHEN OTHERS THEN statements_3                      -- Exception handler
-	END;
+
+EXCEPTION
+  WHEN ex_name_1 THEN statements_1                 -- Exception handler
+  WHEN ex_name_2 OR ex_name_3 THEN statements_2  -- Exception handler
+  WHEN OTHERS THEN statements_3                      -- Exception handler
+END;
+
 {% endhighlight %}
 	
 * 分类：内部定义（运行时）、预定义、自定义
@@ -208,8 +213,10 @@ tag: [Oracle,数据库开发,PL/SQL]
 ## 内部定义异常(ORA-n)
 
 {% highlight sql %}
-	exception_name EXCEPTION;
-	PRAGMA EXCEPTION_INIT (exception_name, error_code)
+
+exception_name EXCEPTION;
+PRAGMA EXCEPTION_INIT (exception_name, error_code)
+
 {% endhighlight %}
 
 ## 预定义异常
@@ -237,7 +244,7 @@ tag: [Oracle,数据库开发,PL/SQL]
 * 异常处理后继续执行或重新开始事务
 
 
-# 操练代码
+# 10 操练代码
 
 * [plsql_anonymous.sql](http://note.youdao.com/share/?id=ecf800e96174ea455ad2d83441bd37bc&type=notebook#/9CC2D241EDB4457D86830CB0D8A64912)
 * [plsql_anonym2.sql](http://note.youdao.com/share/?id=ecf800e96174ea455ad2d83441bd37bc&type=notebook#/1E35F9908B25427E8AB0B7833657868A)
