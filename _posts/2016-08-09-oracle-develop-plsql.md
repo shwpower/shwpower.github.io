@@ -3,7 +3,7 @@ layout: post
 title:  Oracle数据库 - PL/SQL
 date:   2016-08-09 17:15:00 +0800
 categories: Oracle数据库
-tag: 数据库开发
+tag: [Oracle,数据库开发,PL/SQL]
 ---
 
 * content
@@ -152,7 +152,7 @@ tag: 数据库开发
 - EXECUTE IMMEDIATE语句
 - OPEN FOR,FETCH和CLOSE语句
 	
-    {% highlight PL/SQL %}
+{% highlight PL/SQL %}
 		v_stmt_str := 'SELECT * FROM employees WHERE job_id = :j';
 		OPEN v_emp_cursor FOR v_stmt_str USING 'MANAGER';
 		LOOP
@@ -161,16 +161,17 @@ tag: 数据库开发
 		END LOOP;
 		CLOSE v_emp_cursor;
 	
-    {% endhighlight %}
+{% endhighlight %}
 	
-    - 重复占位符
-	{% highlight PL/SQL %}
+- 重复占位符
+{% highlight PL/SQL %}
 	sql_stmt := 'INSERT INTO payroll VALUES (:x, :x, :y, :x)';
 	EXECUTE IMMEDIATE sql_stmt USING a, a, b, a;
 	EXECUTE IMMEDIATE sql_stmt USING a, a, b, a;
 	......
 	
-    {% endhighlight %}
+{% endhighlight %}
+
 ## DBMS_SQL包
 
 - DBMS_SQL.TO_REFCURSOR函数
