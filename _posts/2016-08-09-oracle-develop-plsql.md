@@ -152,7 +152,7 @@ tag: [Oracle,数据库开发,PL/SQL]
 - EXECUTE IMMEDIATE语句
 - OPEN FOR,FETCH和CLOSE语句
 	
-{% highlight PLSQL %}
+{% highlight sql %}
 		v_stmt_str := 'SELECT * FROM employees WHERE job_id = :j';
 		OPEN v_emp_cursor FOR v_stmt_str USING 'MANAGER';
 		LOOP
@@ -164,7 +164,7 @@ tag: [Oracle,数据库开发,PL/SQL]
 {% endhighlight %}
 	
 - 重复占位符
-{% highlight PLSQL %}
+{% highlight sql %}
 	sql_stmt := 'INSERT INTO payroll VALUES (:x, :x, :y, :x)';
 	EXECUTE IMMEDIATE sql_stmt USING a, a, b, a;
 	EXECUTE IMMEDIATE sql_stmt USING a, a, b, a;
@@ -194,7 +194,7 @@ tag: [Oracle,数据库开发,PL/SQL]
 
 ## 异常处理
 
-{% highlight PLSQL %}
+{% highlight sql %}
 	EXCEPTION
 	  WHEN ex_name_1 THEN statements_1                 -- Exception handler
 	  WHEN ex_name_2 OR ex_name_3 THEN statements_2  -- Exception handler
@@ -207,7 +207,7 @@ tag: [Oracle,数据库开发,PL/SQL]
 
 ## 内部定义异常(ORA-n)
 
-{% highlight PLSQL %}
+{% highlight sql %}
 	exception_name EXCEPTION;
 	PRAGMA EXCEPTION_INIT (exception_name, error_code)
 {% endhighlight %}
